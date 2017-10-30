@@ -1,0 +1,21 @@
+{
+  "name": "itelios-frontend-challenge",
+  "version": "0.0.1",
+  "main": "app.js",
+  "repository": "https://github.com/desadoc/itelios-frontend-challenge.git",
+  "author": "Erivaldo Filho <desadoc@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "build": "yarn build-js && yarn build-css",
+    "build-css": "node-sass src/sass/ --output-style compressed -o public/build",
+    "build-js": "uglifyjs src/js/modules.js src/js/cross-sell.js src/js/index.js -mc -o public/build/index.js"
+  },
+  "devDependencies": {
+    "node-sass": "^4.5.3",
+    "uglify-js": "^3.1.6"
+  }
+}
