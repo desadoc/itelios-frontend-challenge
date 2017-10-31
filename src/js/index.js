@@ -15,7 +15,7 @@ function _xhr(method, url) {
         }
       }
     };
-    req.open('GET', '/api/products');
+    req.open('GET', url);
     req.send();
   });
 }
