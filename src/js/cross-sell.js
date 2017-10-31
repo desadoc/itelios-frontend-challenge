@@ -36,18 +36,14 @@ function _cross_sell_render(data) {
   var groupSize = 2;
 
   var viewedItemHtml = _cross_sell_render_product(
-    data.item, 'cross-sell__item--first'
+    data.item, 'cross-sell__item--viewed'
   );
   var suggestionsHtml = '';
   var controlBtnsHtml = '';
 
   for (var i=0; i<data.recommendation.length; i++) {
-    var extraClass = '';
-    if ((i%2) == 0) {
-      extraClass = 'cross-sell__item--first';
-    }
     suggestionsHtml += _cross_sell_render_product(
-      data.recommendation[i], extraClass
+      data.recommendation[i], ''
     );
   }
 

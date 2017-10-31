@@ -11,12 +11,13 @@
   color: $color-header
   font-family: 'Roboto Condensed', sans-serif
 
+$cross-sell-border: 1px solid $color-border
+
 .cross-sell__suggestions__items
   position: relative
   height: calc(2 * #{$cross-sell-item-height})
   overflow-y: hidden
-
-$cross-sell-border: 1px solid $color-border
+  border: $cross-sell-border
 
 .cross-sell__item
   position: relative
@@ -25,13 +26,12 @@ $cross-sell-border: 1px solid $color-border
   height: $cross-sell-item-height
   font-family: 'Roboto', sans-serif
   overflow-y: hidden
-  border: $cross-sell-border
-  border-top: 0
+  border-bottom: $cross-sell-border
   transition-property: top
   transition-duration: 0.25s
   transition-timing-function: ease-in-out
-  &.cross-sell__item--first
-    border-top: $cross-sell-border
+  &.cross-sell__item--viewed
+    border: $cross-sell-border
 
 .cross-sell__item__overlay
   position: absolute
