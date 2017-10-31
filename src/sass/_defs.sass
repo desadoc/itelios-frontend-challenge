@@ -1,0 +1,15 @@
+
+$breakpoint-mobile: 768px
+
+@mixin desktop
+  @media (min-width: $breakpoint-mobile)
+    @content
+
+@mixin mobile
+  @media (max-width: $breakpoint-mobile)
+    @content
+
+$color-bg: #ddd
+$color-page-bg: white
+$color-border: #ddd
+$color-header: #666

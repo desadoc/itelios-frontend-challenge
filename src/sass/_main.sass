@@ -1,0 +1,45 @@
+
+@import '_defs'
+
+// Border box
+
+*,
+*:before,
+*:after
+  -webkit-box-sizing: border-box
+     -moz-box-sizing: border-box
+          box-sizing: border-box
+
+// Page structure
+
+html, body
+  min-width: 100%
+  height: 100%
+  background-color: $color-bg
+
+// Typography
+
+h1
+  font-size: 38px
+h2
+  font-size: 32px
+h3
+  font-size: 26px
+
+// Layout
+
+#root
+  min-width: 100%
+  height: 100%
+
+.page-wrapper
+  background-color: $color-page-bg
+  padding: 1em 2em
+  margin: 0 auto
+  @include desktop
+    max-width: 960px
+  @include mobile
+    max-width: 100%
+
+.material-icons
+  font-size: 36px

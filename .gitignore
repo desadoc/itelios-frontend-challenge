@@ -59,7 +59,8 @@ typings/
 .env
 
 # Files built from source
-public/build/*
+public/css/index.css
+public/js/index.js
 
 # Third party files/dependencies
 public/vendor/*
