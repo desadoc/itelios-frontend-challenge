@@ -33,14 +33,17 @@ function _cross_sell_render_product(product, className) {
 
 function _cross_sell_render(data) {
 
+  var groupSize = 2;
+
   var viewedItemHtml = _cross_sell_render_product(
     data.item, 'cross-sell__item--first'
   );
   var suggestionsHtml = '';
+  var controlBtnsHtml = '';
 
   for (var i=0; i<data.recommendation.length; i++) {
     var extraClass = '';
-    if (i == 0) {
+    if ((i%2) == 0) {
       extraClass = 'cross-sell__item--first';
     }
     suggestionsHtml += _cross_sell_render_product(
@@ -48,7 +51,16 @@ function _cross_sell_render(data) {
     );
   }
 
-  return '' +
+  var controlBtnsCount = Math.ceil(data.recommendation.length/groupSize);
+
+  for (var i=0; i<controlBtnsCount; i++) {
+    controlBtnsHtml += '' +
+      '<li id="cross-sell__btn' + i.toString() + '">' +
+        '<i class="material-icons">lens</i>' +
+      '</li>';
+  }
+
+  var htmlValue = '' +
     '<div class="cross-sell">' +
       '<div class="cross-sell__viewed">' +
         '<div class="cross-sell__header">' +
@@ -62,13 +74,65 @@ function _cross_sell_render(data) {
         '</div>' +
         '<div class="cross-sell__suggestions__items">' +
           suggestionsHtml +
-        '</div>'
+        '</div>' +
+      '</div>' +
+      '<div class="cross-sell__controls">' +
+        '<ul class="cross-sell__controls__btnlist">' +
+          controlBtnsHtml +
+        '</ul>' +
       '</div>' +
     '</div>';
+
+  return {
+    html: htmlValue,
+    groupCount: controlBtnsCount,
+    currIndex: 0
+  };
 }
 
 function _cross_sell_mount(els, data) {
-  els.html(_cross_sell_render(data));
+  var crossSell = _cross_sell_render(data);
+  els.html(crossSell.html);
+  var timeToTransition = 5000;
+
+  var transitionToFn = null;
+  var transitionTimerFn = function() {
+    if (crossSell.currIndex < (crossSell.groupCount-1)) {
+      transitionToFn(crossSell.currIndex+1);
+    } else {
+      transitionToFn(0);
+    }
+  }
+
+  transitionToFn = function(i) {
+    $('.cross-sell__suggestions .cross-sell__item').css(
+      'top', (i * -20).toString() + 'em'
+    );
+    $('#cross-sell__btn' + crossSell.currIndex.toString()).removeClass(
+      'cross-sell__controls__btn--active'
+    );
+    $('#cross-sell__btn' + i.toString()).addClass(
+      'cross-sell__controls__btn--active'
+    );
+
+    crossSell.currIndex = i;
+    clearTimeout(crossSell.timer);
+    crossSell.timer = setTimeout(transitionTimerFn, timeToTransition);
+  }
+
+  $('#cross-sell__btn0').addClass('cross-sell__controls__btn--active');
+
+  for (var i=0; i<crossSell.groupCount; i++) {
+    $('#cross-sell__btn' + i.toString()).on('click', null, i,
+      function(evt) {
+        transitionToFn(evt.data);
+      }
+    );
+  }
+
+  crossSell.timer = setTimeout(
+    transitionTimerFn, timeToTransition
+  );
 }
 
 modules.register('cross-sell', {

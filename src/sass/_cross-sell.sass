@@ -11,16 +11,25 @@
   color: $color-header
   font-family: 'Roboto Condensed', sans-serif
 
+.cross-sell__suggestions__items
+  position: relative
+  height: calc(2 * #{$cross-sell-item-height})
+  overflow-y: hidden
+
 $cross-sell-border: 1px solid $color-border
 
 .cross-sell__item
   position: relative
+  top: 0
   padding: 1em 0.5em
-  height: 10em
+  height: $cross-sell-item-height
   font-family: 'Roboto', sans-serif
   overflow-y: hidden
   border: $cross-sell-border
   border-top: 0
+  transition-property: top
+  transition-duration: 0.25s
+  transition-timing-function: ease-in-out
   &.cross-sell__item--first
     border-top: $cross-sell-border
 
@@ -85,3 +94,18 @@ $cross-sell-border: 1px solid $color-border
 
 .cross-sell__item__description__price_tag
   font-size: 1.2em
+
+.cross-sell__controls
+  text-align: center
+
+.cross-sell__controls__btnlist
+  li
+    display: inline-block
+    padding: 0.1em 0.2em
+    margin: 0.1em 0.2em
+    cursor: pointer
+    color: $color-cross-sell-controls-inactive
+    &.cross-sell__controls__btn--active
+      color: $color-cross-sell-controls-active
+  i
+    font-size: 1em
