@@ -13,7 +13,7 @@ function _cross_sell_render_product(product, className) {
       '</span>' +
       '<span class="cross-sell__item__description">' +
         '<div class="cross-sell__item__description__name">' +
-          '<div class="baseline-trick" />' +
+          '<div class="baseline-trick"></div>' +
           '<div>' + product.name + '</div>' +
         '</div>' +
         '<div class="cross-sell__item__description__price">' +
@@ -43,7 +43,7 @@ function _cross_sell_render(data) {
 
   for (var i=0; i<data.recommendation.length; i++) {
     suggestionsHtml += _cross_sell_render_product(
-      data.recommendation[i], ''
+      data.recommendation[i], 'cross-sell__item--suggestion'
     );
   }
 
@@ -86,9 +86,9 @@ function _cross_sell_render(data) {
   };
 }
 
-function _cross_sell_mount(els, data) {
+function _cross_sell_mount(el, data) {
   var crossSell = _cross_sell_render(data);
-  els.html(crossSell.html);
+  el.innerHTML = crossSell.html;
   var timeToTransition = 5000;
 
   var transitionToFn = null;
@@ -101,13 +101,22 @@ function _cross_sell_mount(els, data) {
   }
 
   transitionToFn = function(i) {
-    $('.cross-sell__suggestions .cross-sell__item').css(
-      'top', (i * -20).toString() + 'em'
+    var itemEls = document.getElementsByClassName(
+      'cross-sell__item--suggestion'
     );
-    $('#cross-sell__btn' + crossSell.currIndex.toString()).removeClass(
+
+    for (var j=0; j<itemEls.length; j++) {
+      itemEls[j].style.top = (i * -20).toString() + 'em';
+    }
+
+    document.getElementById(
+      'cross-sell__btn' + crossSell.currIndex.toString()
+    ).classList.remove(
       'cross-sell__controls__btn--active'
     );
-    $('#cross-sell__btn' + i.toString()).addClass(
+    document.getElementById(
+      'cross-sell__btn' + i.toString()
+    ).classList.add(
       'cross-sell__controls__btn--active'
     );
 
@@ -116,14 +125,15 @@ function _cross_sell_mount(els, data) {
     crossSell.timer = setTimeout(transitionTimerFn, timeToTransition);
   }
 
-  $('#cross-sell__btn0').addClass('cross-sell__controls__btn--active');
+  document.getElementById('cross-sell__btn0')
+  .classList.add('cross-sell__controls__btn--active');
 
   for (var i=0; i<crossSell.groupCount; i++) {
-    $('#cross-sell__btn' + i.toString()).on('click', null, i,
-      function(evt) {
-        transitionToFn(evt.data);
-      }
-    );
+    document.getElementById(
+      'cross-sell__btn' + i.toString()
+    ).addEventListener('click', (function() {
+      transitionToFn(this.index);
+    }).bind({index: i}));
   }
 
   crossSell.timer = setTimeout(
