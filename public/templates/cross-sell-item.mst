@@ -1,0 +1,28 @@
+<div class="cross-sell__item {{className}}">
+  <div class="cross-sell__item__overlay">
+    <a href="#product" class="cross-sell__item__overlay__link"></a>
+    <a href="#addtocart" class="cross-sell__item__cart-btn">
+     <i class="material-icons">add_shopping_cart</i>
+    </a>
+  </div>
+  <span class="cross-sell__item__image">
+    <img src="{{imageName}}">
+  </span><!--
+  --><span class="cross-sell__item__description">
+    <div class="cross-sell__item__description__name">
+      <div class="baseline-trick"></div><!--
+      --><div>{{name}}</div>
+    </div>
+    <div class="cross-sell__item__description__price">
+      Por:
+      <span class="cross-sell__item__description__price_tag">
+        {{price}}
+      </span>
+      <br />
+      ou até:
+      <span class="cross-sell__item__description__price_options">
+        {{productInfo.paymentConditions}}
+      </span>
+    </div>
+  </span>
+</div>

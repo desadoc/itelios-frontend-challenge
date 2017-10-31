@@ -62,5 +62,8 @@ typings/
 public/css/index.css
 public/js/index.js
 
+# Third party files
+public/js/mustache.min.js
+
 # Third party files/dependencies
 public/vendor/*

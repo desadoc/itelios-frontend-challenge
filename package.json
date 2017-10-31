@@ -6,10 +6,13 @@
   "author": "Erivaldo Filho <desadoc@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "mustache": "^2.3.0"
   },
   "scripts": {
     "start": "node app.js",
+    "setup": "yarn install && yarn copylib && yarn build",
+    "copylib": "cp node_modules/mustache/mustache.min.js public/js/",
     "build": "yarn build-js && yarn build-css",
     "build-css": "node-sass src/sass/ --output-style compressed -o public/css",
     "build-js": "uglifyjs src/js/modules.js src/js/cross-sell.js src/js/index.js -mc -o public/js/index.js"
